@@ -1,3 +1,4 @@
+import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.ensemble import RandomForestClassifier
@@ -65,9 +66,9 @@ print()
 print(y_train)
 
 
-classifier = KNeighborsClassifier(n_neighbors=7).fit(X_train, y_train)
-# classifier = RandomForestClassifier()
-classifier.fit(X_train, y_train)
+# classifier = KNeighborsClassifier(n_neighbors=7).fit(X_train, y_train)
+classifier = RandomForestClassifier()
+trained_classifier = classifier.fit(X_train, y_train)
 
 
 y_pred = classifier.predict(X_test)
@@ -89,10 +90,12 @@ plt.savefig("confusion.png")
 print("\n")
 print(accuracy_score(y_test, y_pred))
 
+# Checking against single search value ...
 
 # Wrap the single value in a list
 value = []
-search = 'I am feeling for something cold'
+# search = 'I am feeling for something cold'
+search = 'In the beach now'
 value.append(search)
 
 # Transform the single value using the same vectorizer used for training
@@ -103,3 +106,10 @@ category = label_encoder.inverse_transform(y_pred)
 print()
 print(f"For the following search: {search}")
 print(f"The category is: {category[0]}")
+
+# Save Model, to be used later for searching ...
+pickle.dump(trained_classifier, open("classifier.pkl", 'wb'))
+
+# Saving the label encoder, vectorizer to be used for searching ..
+pickle.dump(vectorizer, open('vectorizer.pkl', 'wb'))
+pickle.dump(label_encoder, open('label_encoder.pkl', 'wb'))
