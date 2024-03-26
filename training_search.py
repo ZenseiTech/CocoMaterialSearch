@@ -10,7 +10,6 @@ import nltk
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.neighbors import KNeighborsClassifier
 nltk.download('stopwords')
 
 
@@ -38,6 +37,13 @@ dataset[LABEL_COLUMN] = label_encoder.transform(dataset[CATEGORY_COLUMN])
 
 
 dataset.head()
+
+# Shuffle the rows randomly
+# Setting random_state for reproducibility
+dataset = dataset.sample(frac=1, random_state=42)
+
+# Reset the index of the shuffled DataFrame
+dataset = dataset.reset_index(drop=True)
 
 
 X = dataset[INFORMATION_COLUMN]
