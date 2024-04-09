@@ -1,3 +1,4 @@
+from sklearn.ensemble import GradientBoostingClassifier
 import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -10,6 +11,7 @@ import nltk
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.neighbors import KNeighborsClassifier
 nltk.download('stopwords')
 
 
@@ -72,8 +74,10 @@ print()
 print(y_train)
 
 
-# classifier = KNeighborsClassifier(n_neighbors=7).fit(X_train, y_train)
-classifier = RandomForestClassifier()
+classifier = KNeighborsClassifier(n_neighbors=4).fit(X_train, y_train)
+# classifier = RandomForestClassifier()
+# classifier = GradientBoostingClassifier(
+#     n_estimators=20, learning_rate=0.1, max_depth=3)
 trained_classifier = classifier.fit(X_train, y_train)
 
 
